@@ -1,12 +1,19 @@
 package com.example.moneyconverter.data.room
 
 import android.content.Context
+import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.example.moneyconverter.data.room.converters.DateConverter
 import com.example.moneyconverter.data.room.models.Currency
 import com.example.moneyconverter.data.room.models.History
 
+// Вообще вся бд реализована благодаря этому чуваку, поклон ему в ноги
+// https://www.youtube.com/watch?v=D7PW4P3FmnU&ab_channel=HoodLab
+
+@TypeConverters(value = [DateConverter::class])
 @Database(
     entities = [Currency::class, History::class,],
     version = 1,

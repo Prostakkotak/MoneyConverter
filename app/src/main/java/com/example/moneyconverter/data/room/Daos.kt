@@ -5,10 +5,6 @@ import com.example.moneyconverter.data.room.models.Currency
 import com.example.moneyconverter.data.room.models.History
 import kotlinx.coroutines.flow.Flow
 
-
-// Вообще вся бд реализована благодаря этому чуваку, поклон ему в ноги
-// https://www.youtube.com/watch?v=D7PW4P3FmnU&ab_channel=HoodLab
-
 @Dao
 interface CurrencyDao { // Валюты
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -38,9 +34,9 @@ interface HistoryDao { // Истории операций
     @Delete
     suspend fun delete(exchangeHistory: History)
 
-    @Query("SELECT * FROM ") // Список ВСЕХ историй
-    fun getHistory(): Flow<List<Currency>>
+    @Query("SELECT * FROM history") // Список ВСЕХ историй
+    fun getHistory(): Flow<List<History>>
 
     @Query("SELECT * FROM history WHERE history_id =:historyId") // Тянем с БД ОДНУ историю по id
-    fun getSingleHistory(historyId:Int): Flow<Currency>
+    fun getSingleHistory(historyId:Int): Flow<History>
 }
