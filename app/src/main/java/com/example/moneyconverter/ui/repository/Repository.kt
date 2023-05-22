@@ -19,6 +19,10 @@ class Repository (
         currencyDao.insert(currency)
     }
 
+    suspend fun updateCurrency(currency: Currency) {
+        currencyDao.update(currency)
+    }
+
     suspend fun insertHistory(history: History) {
         historyDao.insert(history)
     }

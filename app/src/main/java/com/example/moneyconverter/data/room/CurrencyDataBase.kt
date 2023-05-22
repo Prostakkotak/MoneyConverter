@@ -29,7 +29,7 @@ abstract class CurrencyDataBase: RoomDatabase() {
 
         // Функция для получения БД, она либо возвращает уже созданную либо создаёт новую
         // (Собственно поэтому INSTANCE у нас nullable)
-        // А ещё она Thread-safe (я так понял это про многопоточность)
+        // А ещё она Thread-safe (я так понял это про многопоточность, слабо понимаю)
         fun getDatabase(context: Context):CurrencyDataBase{
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(

@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import com.example.moneyconverter.data.room.models.Currency
+import kotlinx.coroutines.flow.first
 
 class ExchangeViewModel(
     private val repository: Repository = Graph.repository
@@ -38,8 +39,61 @@ class ExchangeViewModel(
 
         getCurrencies()
     }
+
+    fun setToInput(num: String) {
+        uiState = uiState.copy(
+            toInput = num.toInt()
+        )
+    }
+
+    fun setFromInput(num: String) {
+        uiState = uiState.copy(
+            fromInput = num.toInt()
+        )
+    }
+
+    fun toggleFavoriteCurrency(id: String, isFavorite: Boolean) {
+        viewModelScope.launch {
+            val currencyData: Currency = repository.getSingleCurrency(id).first()
+
+            repository.updateCurrency(Currency(
+                id = id,
+                isFavorite = isFavorite,
+                shortName = currencyData.shortName,
+                fullName = currencyData.fullName
+            ))
+        }
+    }
+
+    fun setFromCurrency(id: String) {
+        viewModelScope.launch {
+            val currency: Currency = repository.getSingleCurrency(id).first()
+
+            uiState = uiState.copy(
+                fromCurrency = currency
+            )
+        }
+    }
+
+    fun setChoosedToConvert(id: String?) {
+        viewModelScope.launch {
+            val currency: Currency? = if (id != null) repository.getSingleCurrency(id).first() else null
+
+            uiState = uiState.copy(
+                choosedToConvert = currency,
+                toCurrency = currency
+            )
+        }
+    }
 }
 
 data class ExchangeState(
     val currencyList: List<Currency> = emptyList(),
+    val choosedToConvert: Currency? = null,
+
+    val fromCurrency: Currency? = null,
+    val toCurrency: Currency? = null,
+
+    val fromInput: Int = 1,
+    val toInput: Int = 1
 )
