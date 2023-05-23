@@ -8,6 +8,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.moneyconverter.data.room.converters.DateConverter
 import com.example.moneyconverter.data.room.models.Currency
+import com.example.moneyconverter.data.room.models.ExchangeRate
 import com.example.moneyconverter.data.room.models.History
 
 // Вообще вся бд реализована благодаря этому чуваку, поклон ему в ноги
@@ -15,13 +16,14 @@ import com.example.moneyconverter.data.room.models.History
 
 @TypeConverters(value = [DateConverter::class])
 @Database(
-    entities = [Currency::class, History::class,],
+    entities = [Currency::class, History::class, ExchangeRate::class],
     version = 1,
     exportSchema = false
 )
 abstract class CurrencyDataBase: RoomDatabase() {
     abstract fun currencyDao(): CurrencyDao
     abstract fun historyDao(): HistoryDao
+    abstract fun exchangeRateDao(): ExchangeRateDao
 
     companion object {
         @Volatile

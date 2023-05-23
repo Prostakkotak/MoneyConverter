@@ -11,7 +11,8 @@ object Graph {
     val repository by lazy {
         Repository(
             currencyDao = db.currencyDao(),
-            historyDao = db.historyDao()
+            historyDao = db.historyDao(),
+            exchangeRateDao = db.exchangeRateDao()
         )
     }
 

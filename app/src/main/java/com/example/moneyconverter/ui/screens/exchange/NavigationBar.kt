@@ -1,10 +1,13 @@
 package com.example.moneyconverter.ui.screens.exchange
 
+import android.content.res.Resources
+import android.provider.CalendarContract
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
@@ -33,7 +36,7 @@ fun TopNavGraph(navController: NavHostController, exchangeState: ExchangeState, 
 }
 
 @Composable
-fun TopBar(navController: NavHostController) {
+fun TopBar(navController: NavHostController, exchangeState: ExchangeState) {
     val screens = listOf(
         TopNavBar.ExchangePage,
         TopNavBar.ConvertationPage,
@@ -50,12 +53,22 @@ fun TopBar(navController: NavHostController) {
             } == true) selectedTabIndex = index
     }
 
+    val isConvertationCurrenciesSet: Boolean = exchangeState.fromCurrency != null && exchangeState.toCurrency != null
+
     TabRow(selectedTabIndex = selectedTabIndex) {
         screens.forEach { screen ->
-            Tab(selected = currentDestination?.hierarchy?.any {
-                it.route === screen.route
-            } == true, onClick = { navController.navigate(screen.route) }) {
-                Text(text = screen.title, modifier = Modifier.padding(top = 16.dp, bottom = 18.dp))
+            Tab(
+                selected = currentDestination?.hierarchy?.any {
+                    it.route === screen.route
+                } == true,
+                enabled = isConvertationCurrenciesSet,
+                onClick = {
+                    navController.navigate(screen.route)
+            }) {
+                Text(
+                    text = screen.title,
+                    modifier = Modifier.padding(top = 16.dp, bottom = 18.dp),
+                )
             }
         }
     }

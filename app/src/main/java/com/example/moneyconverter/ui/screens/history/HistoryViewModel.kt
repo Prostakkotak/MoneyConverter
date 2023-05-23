@@ -33,12 +33,10 @@ class HistoryViewModel(
         }
     }
 
-    fun insertCurrency(history: History) {
+    fun insertHistory(history: History) {
         viewModelScope.launch {
             repository.insertHistory(history)
         }
-
-        getHistory()
     }
 }
 

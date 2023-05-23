@@ -1,6 +1,7 @@
 package com.example.moneyconverter.navigation
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Search
@@ -66,13 +67,13 @@ sealed class BottomNavBar(
 ) {
     object ExchangePage: BottomNavBar(
         "exchange",
-        "Список валют",
-        icon = Icons.Default.List
+        "Главная",
+        icon = Icons.Default.Home
     )
     object HistoryPage: BottomNavBar(
         "history",
-        "История операций",
-        icon = Icons.Default.Search
+        "История",
+        icon = Icons.Default.List
     )
     object AnalyticsPage: BottomNavBar(
         "analytics",
