@@ -19,6 +19,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.moneyconverter.ui.screens.analytics.AnalyticsScreen
 import com.example.moneyconverter.ui.screens.exchange.ExchangeBaseScreen
+import com.example.moneyconverter.ui.screens.history.HistoryBaseScreen
 import com.example.moneyconverter.ui.screens.history.HistoryScreen
 
 @Composable
@@ -28,7 +29,7 @@ fun BottomNavGraph(navController: NavHostController) { // "Ящик" для ос
             ExchangeBaseScreen()
         }
         composable(route = BottomNavBar.HistoryPage.route) {
-            HistoryScreen()
+            HistoryBaseScreen()
         }
         composable(route = BottomNavBar.AnalyticsPage.route) {
             AnalyticsScreen()

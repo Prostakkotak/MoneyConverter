@@ -12,7 +12,8 @@ object Graph {
         Repository(
             currencyDao = db.currencyDao(),
             historyDao = db.historyDao(),
-            exchangeRateDao = db.exchangeRateDao()
+            exchangeRateDao = db.exchangeRateDao(),
+            historySettingsDao = db.historySettingsDao()
         )
     }
 

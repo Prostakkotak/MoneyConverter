@@ -4,6 +4,7 @@ import androidx.room.*
 import com.example.moneyconverter.data.room.models.Currency
 import com.example.moneyconverter.data.room.models.ExchangeRate
 import com.example.moneyconverter.data.room.models.History
+import com.example.moneyconverter.data.room.models.HistorySettings
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -58,4 +59,22 @@ interface ExchangeRateDao { // Курсы обмена относительно 
 
     @Query("SELECT * FROM exchange_rate WHERE exchange_rate_id =:exchangeRateId")
     fun getSingleExchangeRate(exchangeRateId: String): Flow<ExchangeRate>
+}
+
+@Dao
+interface HistorySettingsDao { // Настройки (фильтры) истории
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(historySettings: HistorySettings)
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun update(historySettings: HistorySettings)
+
+    @Delete
+    suspend fun delete(historySettings: HistorySettings)
+
+    @Query("SELECT * FROM history_settings")
+    fun getHistorySettingsList(): Flow<List<HistorySettings>>
+
+    @Query("SELECT * FROM history_settings WHERE history_settings_id =:historySettingsId")
+    fun getHistorySettings(historySettingsId: String = "main"): Flow<HistorySettings>
 }

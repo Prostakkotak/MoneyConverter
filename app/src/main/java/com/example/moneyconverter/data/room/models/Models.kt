@@ -40,3 +40,14 @@ data class ExchangeRate(
     val id: String,
     val value: Double
 )
+
+@Entity(tableName = "history_settings")
+data class HistorySettings(
+    @ColumnInfo(name = "history_settings_id")
+    @PrimaryKey
+    val id: String,
+    val periodType: String = "alltime",
+    val customPeriodStart: Date? = null,
+    val customPeriodEnd: Date? = null,
+    val filterCurrencies: List<String> = listOf(),
+)
